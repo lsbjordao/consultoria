@@ -14,12 +14,12 @@ import { phases } from '../data/phases';
   <div class="method-rail" data-method-rail>
     <div class="method-line"><i data-method-line></i></div>
     {phases.map((phase, index) => (
-      <a class="method-step" href={`#${phase.id}`} data-scroll-link data-method-step>
+      <div class="method-step" data-method-step>
         <span class="method-index">{phase.number}</span>
         <strong>{phase.kicker}</strong>
         <small>{phase.question}</small>
         {index < phases.length - 1 && <span class="method-arrow" aria-hidden="true">→</span>}
-      </a>
+      </div>
     ))}
   </div>
 
