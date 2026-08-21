@@ -9,8 +9,10 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 export function setupScroll(background: BackgroundJourney | null, scenes: PhaseSceneManager | null) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 720;
+  const isCompactViewport = window.innerWidth <= 980;
+  const useNativeScroll = reduced || isTouchDevice || isCompactViewport;
 
-  const smoother = reduced || isTouchDevice ? null : ScrollSmoother.create({
+  const smoother = useNativeScroll ? null : ScrollSmoother.create({
     wrapper: '#smooth-wrapper',
     content: '#smooth-content',
     smooth: 1.1,
@@ -19,15 +21,29 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
     normalizeScroll: { allowNestedScroll: true }
   });
 
+  const scrollToTarget = (target: HTMLElement) => {
+    if (smoother) {
+      smoother.scrollTo(target, true, 'top 88px');
+      return;
+    }
+
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - 88;
+    window.scrollTo({
+      top: targetTop,
+      behavior: reduced ? 'auto' : 'smooth'
+    });
+  };
+
   document.querySelectorAll<HTMLElement>('[data-scroll-link]').forEach((link) => {
     link.addEventListener('click', (event) => {
       const href = link.getAttribute('href');
       if (!href?.startsWith('#')) return;
       const target = document.querySelector<HTMLElement>(href);
       if (!target) return;
+
       event.preventDefault();
-      if (smoother) smoother.scrollTo(target, true, 'top 88px');
-      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      event.stopPropagation();
+      scrollToTarget(target);
     });
   });
 
@@ -44,7 +60,7 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
     ease: 'power1.inOut'
   });
 
-  if (!isTouchDevice) {
+  if (!useNativeScroll) {
     gsap.to('.hero-orbit-frame', {
       rotate: 18,
       ease: 'none',
@@ -171,7 +187,7 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
   }
 
   const glow = document.querySelector<HTMLElement>('.cursor-glow');
-  if (glow && !reduced && !isTouchDevice) {
+  if (glow && !reduced && !isTouchDevice && !isCompactViewport) {
     const xTo = gsap.quickTo(glow, 'x', { duration: .65, ease: 'power3.out' });
     const yTo = gsap.quickTo(glow, 'y', { duration: .65, ease: 'power3.out' });
     window.addEventListener('pointermove', (event) => {
