@@ -60,6 +60,36 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
     ease: 'power1.inOut'
   });
 
+  if (isTouchDevice || isCompactViewport) {
+    const mobileRevealTargets = [
+      ...document.querySelectorAll<HTMLElement>('.section-heading > *'),
+      ...document.querySelectorAll<HTMLElement>('[data-method-step]'),
+      document.querySelector<HTMLElement>('[data-feedback-note]')
+    ].filter(Boolean) as HTMLElement[];
+
+    if (mobileRevealTargets.length) {
+      gsap.set(mobileRevealTargets, { autoAlpha: 0, y: 18 });
+
+      const mobileObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          gsap.to(entry.target, {
+            autoAlpha: 1,
+            y: 0,
+            duration: .45,
+            ease: 'power2.out'
+          });
+          mobileObserver.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.18,
+        rootMargin: '0px 0px -8% 0px'
+      });
+
+      mobileRevealTargets.forEach((target) => mobileObserver.observe(target));
+    }
+  }
+
   if (!useNativeScroll) {
     gsap.to('.hero-orbit-frame', {
       rotate: 18,
