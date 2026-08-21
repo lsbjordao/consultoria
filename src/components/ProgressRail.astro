@@ -1,0 +1,11 @@
+---
+import { phases } from '../data/phases';
+---
+<aside class="progress-rail" aria-label="Etapas da consultoria">
+  <a href="#inicio" data-scroll-link data-progress-dot="0" aria-label="Início"><i></i></a>
+  {phases.map((phase, index) => (
+    <a href={`#${phase.id}`} data-scroll-link data-progress-dot={index + 1} aria-label={phase.kicker}>
+      <i></i><span>{phase.number}</span>
+    </a>
+  ))}
+</aside>

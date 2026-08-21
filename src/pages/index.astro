@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ProcessOverview from '../components/ProcessOverview.astro';
+import PhaseSection from '../components/PhaseSection.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import ProgressRail from '../components/ProgressRail.astro';
+import BackgroundCanvas from '../components/BackgroundCanvas.astro';
+import { phases } from '../data/phases';
+---
+<BaseLayout
+  title="Engenharia de Soluções — Consultoria de TI em 3D"
+  description="Uma jornada WebGL e GSAP da descoberta à entrega de soluções tecnológicas."
+>
+  <BackgroundCanvas />
+  <ProgressRail />
+  <Nav />
+
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <main>
+        <Hero />
+        <ProcessOverview />
+        <div class="phases-wrap">
+          {phases.map((phase, index) => <PhaseSection phase={phase} index={index} />)}
+        </div>
+        <FinalCTA />
+      </main>
+
+      <footer class="site-footer">
+        <span>Consultoria em TI · Engenharia de Soluções Tecnológicas</span>
+        <span>Astro + Three.js + GSAP</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    import '../lib/main';
+  </script>
+</BaseLayout>

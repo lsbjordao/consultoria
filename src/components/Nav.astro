@@ -1,0 +1,16 @@
+---
+import { phases } from '../data/phases';
+---
+<nav class="nav-shell" aria-label="Navegação principal">
+  <a class="brand" href="#inicio" data-scroll-link>
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span>Engenharia de Soluções</span>
+  </a>
+  <div class="nav-links">
+    <a href="#metodo" data-scroll-link>Método</a>
+    <a href={`#${phases[0].id}`} data-scroll-link>Descoberta</a>
+    <a href={`#${phases[2].id}`} data-scroll-link>Lean Inception</a>
+    <a href={`#${phases[4].id}`} data-scroll-link>Backlog & MVPs</a>
+    <a href={`#${phases[7].id}`} data-scroll-link>Entrega</a>
+  </div>
+</nav>

@@ -1,0 +1,75 @@
+---
+import type { Phase } from '../data/phases';
+
+interface Props {
+  phase: Phase;
+  index: number;
+}
+
+const { phase, index } = Astro.props;
+const reverse = index % 2 === 1;
+---
+<section
+  class:list={['phase', { 'phase-reverse': reverse }]}
+  id={phase.id}
+  data-phase
+  data-phase-index={index}
+  data-visual={phase.visual}
+>
+  <div class="phase-inner">
+    <div class="phase-copy" data-phase-copy>
+      <div class="phase-heading-row">
+        <span class="phase-number">{phase.number}</span>
+        <span class="phase-kicker">{phase.kicker}</span>
+      </div>
+      <h2>{phase.title}</h2>
+      <p class="phase-description">{phase.description}</p>
+
+      <div class="phase-question">
+        <span>Pergunta decisiva</span>
+        <strong>{phase.question}</strong>
+      </div>
+
+      <div class="deliverables">
+        {phase.deliverables.map((item) => (
+          <article class="deliverable" data-deliverable>
+            <span class="deliverable-check">✓</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="phase-visual-column" data-phase-visual-column>
+      <div class="phase-visual-shell">
+        <header class="visual-header">
+          <div>
+            <span>Objeto WebGL</span>
+            <strong>{phase.objectLabel}</strong>
+          </div>
+          <span class="live-badge"><i></i> scroll-reactive</span>
+        </header>
+
+        <div class="phase-canvas" data-phase-canvas data-scene={phase.visual} aria-hidden="true"></div>
+
+        <footer class="visual-stats">
+          <div>
+            <span>Saída</span>
+            <strong>{phase.output}</strong>
+          </div>
+          <div>
+            <span>Risco reduzido</span>
+            <strong>{phase.risk}</strong>
+          </div>
+          <div>
+            <span>Progresso</span>
+            <strong data-phase-progress>00%</strong>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>

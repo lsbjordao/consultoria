@@ -1,0 +1,33 @@
+---
+import { phases } from '../data/phases';
+---
+<section class="method" id="metodo" data-method>
+  <div class="section-heading">
+    <span class="eyebrow"><i></i> uma sequência, não uma prisão</span>
+    <h2>O fluxo principal é linear. <span class="gradient-text">O aprendizado não é.</span></h2>
+    <p>
+      Cada etapa reduz um tipo diferente de incerteza. Quando um requisito, risco ou decisão arquitetural
+      muda o entendimento do problema, o processo volta para a etapa necessária — sem fingir que discovery termina para sempre.
+    </p>
+  </div>
+
+  <div class="method-rail" data-method-rail>
+    <div class="method-line"><i data-method-line></i></div>
+    {phases.map((phase, index) => (
+      <a class="method-step" href={`#${phase.id}`} data-scroll-link data-method-step>
+        <span class="method-index">{phase.number}</span>
+        <strong>{phase.kicker}</strong>
+        <small>{phase.question}</small>
+        {index < phases.length - 1 && <span class="method-arrow" aria-hidden="true">→</span>}
+      </a>
+    ))}
+  </div>
+
+  <div class="feedback-note" data-feedback-note>
+    <span class="feedback-loop" aria-hidden="true">↺</span>
+    <div>
+      <strong>Feedback loops intencionais</strong>
+      <p>Descobertas técnicas podem voltar a requisitos; protótipos podem mudar prioridades; homologação pode alimentar o próximo backlog.</p>
+    </div>
+  </div>
+</section>
