@@ -143,6 +143,51 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .nav-links a:hover { color: #fff; background: rgba(255,255,255,.065); }
 
+.nav-portfolio-link {
+  color: #dff8ff !important;
+  background: linear-gradient(120deg, rgba(110,231,255,.12), rgba(199,166,255,.09));
+  border: 1px solid rgba(110,231,255,.2);
+}
+
+.floating-portfolio {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid rgba(110,231,255,.22);
+  border-radius: 999px;
+  background: rgba(5, 16, 24, .72);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 18px 42px rgba(0,0,0,.28), 0 0 25px rgba(110,231,255,.12);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.floating-portfolio:hover {
+  transform: translateY(-2px);
+  border-color: rgba(110,231,255,.38);
+  box-shadow: 0 22px 52px rgba(0,0,0,.32), 0 0 32px rgba(110,231,255,.18);
+}
+
+.floating-label {
+  white-space: nowrap;
+}
+
+.floating-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
 .progress-rail {
   position: fixed;
   right: 16px;
