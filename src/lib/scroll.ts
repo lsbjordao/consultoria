@@ -68,7 +68,7 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
     ].filter(Boolean) as HTMLElement[];
 
     if (mobileRevealTargets.length) {
-      gsap.set(mobileRevealTargets, { autoAlpha: 0, y: 18 });
+      gsap.set(mobileRevealTargets, { autoAlpha: 0, y: 8 });
 
       const mobileObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -76,14 +76,14 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
           gsap.to(entry.target, {
             autoAlpha: 1,
             y: 0,
-            duration: .45,
-            ease: 'power2.out'
+            duration: .28,
+            ease: 'power1.out'
           });
           mobileObserver.unobserve(entry.target);
         });
       }, {
-        threshold: 0.18,
-        rootMargin: '0px 0px -8% 0px'
+        threshold: 0.2,
+        rootMargin: '0px 0px -6% 0px'
       });
 
       mobileRevealTargets.forEach((target) => mobileObserver.observe(target));
