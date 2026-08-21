@@ -8,14 +8,14 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 export function setupScroll(background: BackgroundJourney | null, scenes: PhaseSceneManager | null) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 720;
 
-  const smoother = reduced ? null : ScrollSmoother.create({
+  const smoother = reduced || isTouchDevice ? null : ScrollSmoother.create({
     wrapper: '#smooth-wrapper',
     content: '#smooth-content',
     smooth: 1.1,
     effects: true,
     smoothTouch: 0.08,
-    // allowNestedScroll keeps inner scrollers (e.g. the method rail) swipeable and tappable on touch devices
     normalizeScroll: { allowNestedScroll: true }
   });
 
