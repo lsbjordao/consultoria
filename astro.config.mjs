@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://lsbjordao.github.io',
-  base: '/consultoria-astro-webgl',
+  base: '/consultoria',
   output: 'static',
   build: {
     inlineStylesheets: 'auto'
