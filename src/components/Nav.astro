@@ -1,12 +1,15 @@
 ---
 import { phases } from '../data/phases';
 ---
-<nav class="nav-shell" aria-label="Navegação principal">
+<nav class="nav-shell" aria-label="Navegação principal" data-nav>
   <a class="brand" href="#inicio" data-scroll-link>
     <span class="brand-mark" aria-hidden="true"></span>
     <span>Engenharia de Soluções</span>
   </a>
-  <div class="nav-links">
+  <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="#metodo" data-scroll-link>Método</a>
     <a href={`#${phases[0].id}`} data-scroll-link>Descoberta</a>
     <a href={`#${phases[2].id}`} data-scroll-link>Lean Inception</a>
@@ -14,6 +17,25 @@ import { phases } from '../data/phases';
     <a href={`#${phases[7].id}`} data-scroll-link>Entrega</a>
   </div>
 </nav>
+
+<script>
+  const navShell = document.querySelector<HTMLElement>('[data-nav]');
+  const navToggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+
+  const closeNav = () => {
+    navShell?.classList.remove('is-open');
+    navToggle?.setAttribute('aria-expanded', 'false');
+  };
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = navShell?.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+
+  navShell?.querySelectorAll('.nav-links a').forEach((link) => {
+    link.addEventListener('click', closeNav);
+  });
+</script>
 
 <a class="floating-portfolio" href="https://lsbjordao.dev" target="_blank" rel="noreferrer noopener" aria-label="Visitar o portfolio de Lucas">
   <span class="floating-label">Portfolio</span>

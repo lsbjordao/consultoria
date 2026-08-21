@@ -15,7 +15,8 @@ export function setupScroll(background: BackgroundJourney | null, scenes: PhaseS
     smooth: 1.1,
     effects: true,
     smoothTouch: 0.08,
-    normalizeScroll: true
+    // allowNestedScroll keeps inner scrollers (e.g. the method rail) swipeable and tappable on touch devices
+    normalizeScroll: { allowNestedScroll: true }
   });
 
   document.querySelectorAll<HTMLElement>('[data-scroll-link]').forEach((link) => {
